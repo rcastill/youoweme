@@ -1,4 +1,4 @@
-package com.mokadevel.renew.models;
+package com.mokadevel.youoweme.models;
 
 import org.json.JSONArray;
 import org.json.JSONException;
