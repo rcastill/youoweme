@@ -5,11 +5,9 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
 
-import java.util.Objects;
-
 public class Requests
 {
-    public static final String TARGET_URL = "http://192.168.0.11";
+    public static final String TARGET_URL = "http://192.168.0.11:8000";
 
     // Singleton instance.
     private static Requests instance;

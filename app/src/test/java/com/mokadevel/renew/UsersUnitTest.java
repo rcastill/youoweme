@@ -15,7 +15,7 @@ public class UsersUnitTest
     @BeforeClass
     public static void before() throws JSONException
     {
-        String json = "{\"id\": 1, \"full_name\": \"Test User\"}";
+        String json = "{\"id\": \"1\", \"name\": \"Test User\", \"access_token\": \"Test Token\"}";
 
         user = new User().fromJson(new JSONObject(json));
     }
@@ -23,12 +23,18 @@ public class UsersUnitTest
     @Test
     public void fromJson_name() throws Exception
     {
-        assertEquals("Test User", user.getFullName());
+        assertEquals("Test User", user.getName());
     }
 
     @Test
     public void fromJson_id() throws Exception
     {
-        assertEquals(1, user.getId());
+        assertEquals("1", user.getId());
+    }
+
+    @Test
+    public void fromJson_accessToken() throws Exception
+    {
+        assertEquals("Test Token", user.getAccessToken());
     }
 }
