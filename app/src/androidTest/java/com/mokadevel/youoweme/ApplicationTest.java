@@ -1,4 +1,4 @@
-package com.mokadevel.renew;
+package com.mokadevel.youoweme;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;
