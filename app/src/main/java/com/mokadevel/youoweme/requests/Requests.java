@@ -35,6 +35,7 @@ public class Requests
 
         return instance;
     }
+
     public static String makeUrl(String action, Object... args)
     {
         return String.format(TARGET_URL + action, args);
