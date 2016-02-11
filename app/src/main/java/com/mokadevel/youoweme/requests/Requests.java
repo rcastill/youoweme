@@ -9,7 +9,7 @@ import java.util.Objects;
 
 public class Requests
 {
-    public static final String TARGET_URL = "192.168.0.11";
+    public static final String TARGET_URL = "http://192.168.0.11";
 
     // Singleton instance.
     private static Requests instance;
@@ -27,12 +27,14 @@ public class Requests
         requestQueue.add(request);
     }
 
-    public static Requests getInstance(Context context)
+    public static void initialize(Context context)
     {
-        if (instance == null) {
+        if (instance == null)
             instance = new Requests(context);
-        }
+    }
 
+    public static Requests getInstance()
+    {
         return instance;
     }
 

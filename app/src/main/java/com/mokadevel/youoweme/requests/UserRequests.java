@@ -6,6 +6,7 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.facebook.AccessToken;
 import com.mokadevel.youoweme.models.User;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -28,9 +29,9 @@ public class UserRequests
      * @param accessToken   Facebook access token.
      * @param onResult      Predicate that gets called with the result.
      */
-    void authenticate(Requests requests, String id, String accessToken, final Predicate<User> onResult)
+    public static void authenticate(String id, String accessToken, final Predicate<User> onResult)
     {
-        requests.add(new JsonObjectRequest(
+        Requests.getInstance().add(new JsonObjectRequest(
                 Request.Method.GET,
                 Requests.makeUrl(SIGN_IN, id, accessToken),
                 null,

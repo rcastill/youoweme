@@ -8,12 +8,20 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.TextView;
 
+import com.mokadevel.youoweme.requests.Requests;
+
 public class MainActivity extends AppCompatActivity
 {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        /* Init FB service */
+        FacebookService.initialize(getApplicationContext());
+
+        /* Init requests */
+        Requests.initialize(getApplicationContext());
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -35,7 +43,7 @@ public class MainActivity extends AppCompatActivity
                 resultText.setText("Not logged in");
 
             } else if (resultCode == Activity.RESULT_OK) {
-
+                resultText.setText(FacebookService.getInstance().getUser().getName());
             }
         }
     }
