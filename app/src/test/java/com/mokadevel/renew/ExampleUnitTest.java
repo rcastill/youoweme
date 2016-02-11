@@ -1,4 +1,4 @@
-package com.mokadevel.renew;
+package com.mokadevel.youoweme;
 
 import org.junit.Test;
 

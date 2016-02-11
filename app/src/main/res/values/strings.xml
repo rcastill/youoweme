@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">Renew</string>
+    <string name="facebook_app_id">211886395825790</string>
+    <string name="button_send">Send</string>
+    <string name="title_activity_login">LoginActivity</string>
+    <string name="action_settings">Settings</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
