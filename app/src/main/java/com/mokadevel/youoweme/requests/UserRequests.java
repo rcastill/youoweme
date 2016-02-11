@@ -17,32 +17,22 @@ import org.json.JSONObject;
  */
 public class UserRequests
 {
-    // Singleton instance.
-    private static UserRequests instance;
-
     // URLS.
     private static final String SIGN_IN = "/users/sign_in/%s/%s/";
-
-    // Request queue.
-    private RequestQueue requestQueue;
-
-    private UserRequests(Context context)
-    {
-        requestQueue = Volley.newRequestQueue(context);
-    }
 
     /**
      * Asynchronously tries to authenticate an user. If the authentication succeeds, the
      * onResult callback will be called with the resulting User model object, otherwise,
      * if the process fails for whatever reason, the callback will be called with null.
      *
+     * @param requests      requests object to handle Volley request queue.
      * @param id            Facebook ID of the user to authenticate.
      * @param accessToken   Facebook access token.
      * @param onResult      Predicate that gets called with the result.
      */
-    void authenticate(String id, String accessToken, final Predicate<User> onResult)
+    void authenticate(Requests requests, String id, String accessToken, final Predicate<User> onResult)
     {
-        requestQueue.add(new JsonObjectRequest(
+        requests.add(new JsonObjectRequest(
                 Request.Method.GET,
                 Requests.makeUrl(SIGN_IN, id, accessToken),
                 null,
@@ -72,14 +62,5 @@ public class UserRequests
                     }
                 }
         ));
-    }
-
-    public UserRequests getInstance(Context context)
-    {
-        if (instance == null) {
-            instance = new UserRequests(context);
-        }
-
-        return instance;
     }
 }
