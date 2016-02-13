@@ -19,21 +19,28 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        /* Init FB service */
+        // Initialize services.
         FacebookService.initialize(getApplicationContext());
-
-        /* Init requests */
         Requests.initialize(getApplicationContext());
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        getSupportActionBar().setTitle("Hello 2");
+        getSupportActionBar().setTitle("MainActivity");
+
+        // TODO: debug only.
+        toApplicationActivity();
     }
 
-    public void toFbLogin(View view) {
+    public void toFacebookLogin(View view) {
         Intent intent = new Intent(this, LoginActivity.class);
         startActivityForResult(intent, ResultIds.FACEBOOK_LOGIN);
+    }
+
+    private void toApplicationActivity()
+    {
+        Intent intent = new Intent(this, ApplicationActivity.class);
+        startActivity(intent);
     }
 
     @Override
@@ -42,10 +49,12 @@ public class MainActivity extends AppCompatActivity
             TextView resultText = (TextView) findViewById(R.id.loginResult);
 
             if (resultCode == Activity.RESULT_CANCELED) {
+                // TODO: show an alert.
                 resultText.setText("Not logged in");
 
             } else if (resultCode == Activity.RESULT_OK) {
-                resultText.setText(FacebookService.getInstance().getUser().getName());
+                // resultText.setText(FacebookService.getInstance().getUser().getName());
+                toApplicationActivity();
             }
         }
     }

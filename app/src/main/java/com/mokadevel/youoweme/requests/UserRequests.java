@@ -15,6 +15,8 @@ import org.json.JSONObject;
  */
 public class UserRequests
 {
+    private static final String TAG = "DEVLOG:USER_REQUESTS";
+
     // URLS.
     private static final String SIGN_IN = "/users/sign_in/%s/%s/";
 
@@ -51,7 +53,7 @@ public class UserRequests
                     @Override
                     public void onErrorResponse(VolleyError error)
                     {
-                        Log.e("DEVLOG", "UserRequests.authenticate, error in listener.");
+                        Log.e(TAG, "authenticate(): error in listener.");
                         onResult.apply(null);
                     }
                 }

@@ -14,6 +14,8 @@ public class Requests
 {
     public static final String TARGET_URL = "http://192.168.0.11:8000";
 
+    private static final String TAG = "DEVLOG:REQUESTS";
+
     // Singleton instance.
     private static Requests instance;
 
@@ -43,7 +45,9 @@ public class Requests
     }
 
     /**
-     * Checks if a response was successful.
+     * Checks if a response was successful. This automatically outputs the error
+     * to the Android log.
+     *
      * @param source        class who asks.
      * @param response      response to verify.
      * @return              true if success.
@@ -65,7 +69,7 @@ public class Requests
 
     private static void logError(Class source, String format, Object... args)
     {
-        Log.e("DEVLOG", source.getCanonicalName() + ", " + String.format(format, args));
+        Log.e(TAG, source.getCanonicalName() + ", " + String.format(format, args));
     }
 
     // Singleton.

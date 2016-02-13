@@ -8,6 +8,8 @@ import java.util.ArrayList;
 
 public class Group implements JsonLoadable<Group>
 {
+    private static int TEST_IDS = 0;
+
     private ArrayList<User> members = new ArrayList<>();
     private String name;
     private long id;
@@ -23,11 +25,19 @@ public class Group implements JsonLoadable<Group>
         this.name = name;
     }
 
+    public Group asTest()
+    {
+        id = TEST_IDS++;
+        name = "Test group " + id;
+
+        return this;
+    }
+
     @Override
     public Group fromJson(JSONObject object) throws JSONException
     {
-        this.id = object.getLong("id");
-        this.name = object.getString("name");
+        id = object.getLong("id");
+        name = object.getString("name");
 
         // add all members.
         JSONArray members = object.getJSONArray("members");

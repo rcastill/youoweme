@@ -27,7 +27,7 @@
         android:text="Login"
         android:id="@+id/loginButton"
         android:layout_gravity="center_horizontal"
-        android:onClick="toFbLogin"/>
+        android:onClick="toFacebookLogin"/>
 
     <TextView
         android:layout_width="wrap_content"
