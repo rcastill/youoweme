@@ -1,4 +1,4 @@
-package com.mokadevel.youoweme;
+package com.mokadevel.youoweme.util;
 
 import java.util.ArrayList;
 

@@ -9,6 +9,8 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.mokadevel.youoweme.requests.Requests;
+import com.mokadevel.youoweme.services.FacebookService;
+import com.mokadevel.youoweme.util.ResultIds;
 
 public class MainActivity extends AppCompatActivity
 {

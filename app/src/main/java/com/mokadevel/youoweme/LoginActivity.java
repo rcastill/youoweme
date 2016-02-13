@@ -1,24 +1,17 @@
 package com.mokadevel.youoweme;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
-import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.AttributeSet;
-import android.util.Log;
-import android.view.View;
 
-import com.facebook.CallbackManager;
-import com.facebook.FacebookCallback;
-import com.facebook.FacebookException;
-import com.facebook.FacebookSdk;
-import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 import com.mokadevel.youoweme.models.User;
+import com.mokadevel.youoweme.services.FacebookService;
+import com.mokadevel.youoweme.util.ConnectionListener;
 
-public class LoginActivity extends AppCompatActivity implements ConnectionListener {
+public class LoginActivity extends AppCompatActivity implements ConnectionListener
+{
     private FacebookService facebookService;
 
     @Override

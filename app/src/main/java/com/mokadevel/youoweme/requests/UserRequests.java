@@ -6,6 +6,7 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.mokadevel.youoweme.modelbase.ModelBase;
 import com.mokadevel.youoweme.models.User;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -38,13 +39,10 @@ public class UserRequests
                     @Override
                     public void onResponse(JSONObject response)
                     {
-                        try {
-                            if (response.getBoolean("success")) {
-                                onResult.apply(new User().fromJson(response.getJSONObject("user")));
-                            } else {
-                                onResult.apply(null);
-                            }
-                        } catch (JSONException e) {
+                        // received a response, check that the response was actually successful.
+                        if (Requests.isSuccesful(getClass(), response)) {
+                            onResult.apply(ModelBase.loadModel(User.class, response, "user"));
+                        } else {
                             onResult.apply(null);
                         }
                     }
@@ -54,6 +52,7 @@ public class UserRequests
                     @Override
                     public void onErrorResponse(VolleyError error)
                     {
+                        Log.e("DEVLOG", "UserRequests.authenticate, error in listener.");
                         onResult.apply(null);
                     }
                 }

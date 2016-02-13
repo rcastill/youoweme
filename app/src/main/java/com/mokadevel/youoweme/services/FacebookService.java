@@ -1,4 +1,4 @@
-package com.mokadevel.youoweme;
+package com.mokadevel.youoweme.services;
 
 import android.content.Context;
 
@@ -9,6 +9,8 @@ import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.FacebookSdk;
 import com.facebook.login.LoginResult;
+import com.mokadevel.youoweme.util.ConnectionListener;
+import com.mokadevel.youoweme.util.EventSource;
 import com.mokadevel.youoweme.models.User;
 import com.mokadevel.youoweme.requests.UserRequests;
 
