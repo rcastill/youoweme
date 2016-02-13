@@ -19,16 +19,12 @@ public class Group implements JsonLoadable<Group>
 
     }
 
-    private Group(long id, String name)
-    {
-        this.id = id;
-        this.name = name;
-    }
-
     public Group asTest()
     {
         id = TEST_IDS++;
         name = "Test group " + id;
+
+        members.add(new User().asTest());
 
         return this;
     }

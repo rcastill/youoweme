@@ -15,7 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import android.widget.TextView;
-import com.mokadevel.youoweme.fragments.DashboardFragment;
+import com.mokadevel.youoweme.fragments.GroupsFragment;
 
 public class ApplicationActivity extends AppCompatActivity
 {
@@ -82,8 +82,8 @@ public class ApplicationActivity extends AppCompatActivity
         {
             switch (position)
             {
-                case 0:
-                    return new DashboardFragment();
+                case 1:
+                    return new GroupsFragment();
             }
 
             return PlaceholderFragment.newInstance(position + 1);
@@ -102,7 +102,7 @@ public class ApplicationActivity extends AppCompatActivity
                 case 0:
                     return "Dashboard";
                 case 1:
-                    return "SECTION 2";
+                    return "Groups";
                 case 2:
                     return "SECTION 3";
             }

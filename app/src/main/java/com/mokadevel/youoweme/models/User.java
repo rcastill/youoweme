@@ -5,6 +5,8 @@ import org.json.JSONObject;
 
 public class User implements JsonLoadable<User>
 {
+    private static int TEST_IDS = 0;
+
     private String name;
     private String id;
     private String accessToken;
@@ -20,6 +22,14 @@ public class User implements JsonLoadable<User>
         }
 
         return this;
+    }
+
+    public User asTest()
+    {
+        id = String.valueOf(TEST_IDS++);
+        name = "Test User " + id;
+
+        return null;
     }
 
     public String getId()
