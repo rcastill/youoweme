@@ -8,7 +8,6 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.mokadevel.youoweme.modelbase.ModelBase;
 import com.mokadevel.youoweme.models.User;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 /**
@@ -40,7 +39,7 @@ public class UserRequests
                     public void onResponse(JSONObject response)
                     {
                         // received a response, check that the response was actually successful.
-                        if (Requests.isSuccesful(getClass(), response)) {
+                        if (Requests.isSuccessful(getClass(), response)) {
                             onResult.apply(ModelBase.loadModel(User.class, response, "user"));
                         } else {
                             onResult.apply(null);

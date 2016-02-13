@@ -48,7 +48,7 @@ public class Requests
      * @param response      response to verify.
      * @return              true if success.
      */
-    public static boolean isSuccesful(Class source, JSONObject response)
+    public static boolean isSuccessful(Class source, JSONObject response)
     {
         try {
             if (response.getBoolean("success")) {
