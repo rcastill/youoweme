@@ -1,8 +1,6 @@
 package com.mokadevel.youoweme.modelbase;
 
 import android.util.Log;
-import com.mokadevel.youoweme.models.Group;
-import com.mokadevel.youoweme.models.JsonLoadable;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;

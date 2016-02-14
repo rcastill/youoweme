@@ -40,7 +40,7 @@ public class GroupRequestsTest extends ApplicationTestCase<Application>
             @Override
             public boolean apply(ArrayList<Group> groups)
             {
-                assertEquals(1, groups.size());
+                assertTrue(groups.size() > 0);
 
                 signal.countDown();
                 return false;

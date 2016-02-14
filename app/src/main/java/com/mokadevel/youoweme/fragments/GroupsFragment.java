@@ -9,9 +9,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.*;
+import com.android.internal.util.Predicate;
 import com.mokadevel.youoweme.R;
 import com.mokadevel.youoweme.models.Group;
+import com.mokadevel.youoweme.models.User;
+import com.mokadevel.youoweme.requests.GroupRequests;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 
@@ -27,16 +31,24 @@ public class GroupsFragment extends Fragment
 
         ListView listView = (ListView) rootView.findViewById(R.id.list);
 
-        // fill with test groups.
-        for (int i = 0; i < 10; i++) {
-            groups.add(new Group().asTest());
-        }
-
         // set adapters and listeners.
         listView.setAdapter(new DashboardAdapter());
         listView.setOnItemClickListener(new ItemClickListener());
 
+        // send requests.
+        GroupRequests.getAll(User.testUser(), new GroupsRequestGetAllPredicate());
+
         return rootView;
+    }
+
+    private class GroupsRequestGetAllPredicate implements Predicate<ArrayList<Group>>
+    {
+        @Override
+        public boolean apply(ArrayList<Group> groups)
+        {
+            GroupsFragment.this.groups.addAll(groups);
+            return false;
+        }
     }
 
     private class ItemClickListener implements AdapterView.OnItemClickListener
@@ -82,7 +94,7 @@ public class GroupsFragment extends Fragment
             // set the group count, formatting it's current text.
             TextView textViewMemberCount = (TextView) convertView.findViewById(R.id.memberCount);
             String text = getResources().getString(R.string.group_member_count);
-            textViewMemberCount.setText(String.format(text, group.getMembers().size()));
+            textViewMemberCount.setText(String.format(text, group.getSize()));
 
             return convertView;
         }

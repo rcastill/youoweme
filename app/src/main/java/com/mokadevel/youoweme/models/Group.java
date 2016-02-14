@@ -1,5 +1,6 @@
 package com.mokadevel.youoweme.models;
 
+import com.mokadevel.youoweme.modelbase.JsonLoadable;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -13,6 +14,7 @@ public class Group implements JsonLoadable<Group>
     private ArrayList<User> members = new ArrayList<>();
     private String name;
     private long id;
+    private int size;
 
     public Group()
     {
@@ -34,11 +36,14 @@ public class Group implements JsonLoadable<Group>
     {
         id = object.getLong("id");
         name = object.getString("name");
+        size = object.getInt("size");
 
-        // add all members.
-        JSONArray members = object.getJSONArray("members");
-        for (int i = 0; i < members.length(); i++) {
-            this.members.add(new User().fromJson(members.getJSONObject(i)));
+        // add all members if the object has them.
+        if (object.has("members")) {
+            JSONArray members = object.getJSONArray("members");
+            for (int i = 0; i < members.length(); i++) {
+                this.members.add(new User().fromJson(members.getJSONObject(i)));
+            }
         }
 
         return this;
@@ -54,8 +59,13 @@ public class Group implements JsonLoadable<Group>
         return name;
     }
 
-    public ArrayList<User> getMembers()
+    public User getMember(int index)
     {
-        return members;
+        return members.get(index);
+    }
+
+    public int getSize()
+    {
+        return size;
     }
 }
