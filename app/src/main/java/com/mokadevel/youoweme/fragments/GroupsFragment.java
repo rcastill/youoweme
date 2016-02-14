@@ -23,7 +23,7 @@ public class GroupsFragment extends Fragment
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState)
     {
-        final View rootView = inflater.inflate(R.layout.fragment_groups, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_groups, container, false);
 
         ListView listView = (ListView) rootView.findViewById(R.id.list);
 
