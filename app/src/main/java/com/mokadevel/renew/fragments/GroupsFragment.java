@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.*;
 import com.android.internal.util.Predicate;
 import com.mokadevel.renew.CreateGroupActivity;
+import com.mokadevel.renew.GroupActivity;
 import com.mokadevel.renew.R;
 import com.mokadevel.renew.models.Group;
 import com.mokadevel.renew.models.User;
@@ -40,6 +41,7 @@ public class GroupsFragment extends Fragment
         // send requests.
         GroupRequests.getAll(User.testUser(), new GroupsRequestGetAllPredicate());
 
+        // setup the fab button.
         FloatingActionButton fab = (FloatingActionButton) rootView.findViewById(R.id.fab);
         fab.setOnClickListener(new CreateGroupOnClickListener());
 
@@ -52,7 +54,7 @@ public class GroupsFragment extends Fragment
         @Override
         public void onClick(View v)
         {
-            Intent intent = new Intent(GroupsFragment.this.getActivity(), CreateGroupActivity.class);
+            Intent intent = new Intent(getActivity(), CreateGroupActivity.class);
             startActivityForResult(intent, CREATE_GROUP);
         }
     }
@@ -74,8 +76,9 @@ public class GroupsFragment extends Fragment
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id)
         {
-            Snackbar.make(parent, groups.get(position).getName(), Snackbar.LENGTH_LONG)
-                    .show();
+            Intent intent = new Intent(getActivity(), GroupActivity.class);
+            intent.putExtra(GroupActivity.EXTRA_GROUP_ID, groups.get(position).getId());
+            startActivity(intent);
         }
     }
 

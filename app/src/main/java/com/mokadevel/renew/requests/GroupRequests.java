@@ -23,11 +23,17 @@ public class GroupRequests
     private static final String URL_GET = "/groups/get/%d/";
     private static final String URL_BELONGS = "/groups/get_all/%s/";
 
-    public static void get(Group group, final Predicate<Group> onResult)
+    /**
+     * Requests for a group model object.
+     *
+     * @param id        the id of the group.
+     * @param onResult  the callback on result.
+     */
+    public static void get(long id, final Predicate<Group> onResult)
     {
         Requests.getInstance().add(new JsonObjectRequest(
                 Request.Method.GET,
-                Requests.makeUrl(URL_GET, group.getId()),
+                Requests.makeUrl(URL_GET, id),
                 null,
                 new Response.Listener<JSONObject>()
                 {

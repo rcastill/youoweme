@@ -16,6 +16,7 @@
 
     <style name="Toolbar.Title">
         <item name="android:textColor">#ffffff</item>
+        <item name="android:textSize">20sp</item>
     </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
