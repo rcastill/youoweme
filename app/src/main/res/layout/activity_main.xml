@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    tools:context="com.mokadevel.youoweme.MainActivity"
+    tools:context="com.mokadevel.renew.MainActivity"
     android:weightSum="1">
 
     <android.support.v7.widget.Toolbar
@@ -15,7 +15,6 @@
         android:layout_height="wrap_content"
         android:minHeight="?android:attr/actionBarSize"
         android:theme="@style/Toolbar"
-        app:titleTextAppearance="@style/Toolbar.Title"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
         app:title="Toolbar">
 

@@ -10,4 +10,6 @@
     <string name="title_activity_application">ApplicationActivity</string>
     <string name="section_format">Hello World from section: %1$d</string>
     <string name="group_member_count">%d member(s)</string>
+    <string name="group_name">Group name</string>
+    <string name="create_group">Create group</string>
 </resources>

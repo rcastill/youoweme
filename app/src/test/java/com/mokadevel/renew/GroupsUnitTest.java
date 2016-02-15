@@ -1,6 +1,6 @@
 package com.mokadevel.renew;
 
-import com.mokadevel.youoweme.models.Group;
+import com.mokadevel.renew.models.Group;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.junit.BeforeClass;
