@@ -143,6 +143,7 @@ public class Form
         }
 
         private ArrayList<Validator> validators = new ArrayList<>();
+
         private ArrayList<String> errors;
 
         private String name;
@@ -172,6 +173,9 @@ public class Form
         @SuppressWarnings("unchecked")
         public String getValue()
         {
+            // restart the error list for a possibly new value.
+            errors = null;
+
             Collector collector = collectors.get(source.getClass());
 
             if (collector == null) {
