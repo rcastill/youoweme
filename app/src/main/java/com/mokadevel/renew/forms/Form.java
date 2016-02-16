@@ -39,15 +39,17 @@ public class Form
             throw new InvalidStateException("collectAll should be called first.");
         }
 
+        boolean success = true;
+
         for (FormField field : fields) {
             String value = data.get(field.getName());
 
-            if (!field.isValid(value)) {
-                return false;
+            if (value == null || !field.isValid(value)) {
+                success = false;
             }
         }
 
-        return true;
+        return success;
     }
 
     public String get(String name)
@@ -58,6 +60,23 @@ public class Form
         }
 
         return data.get(name);
+    }
+
+    public ArrayList<String> getErrors()
+    {
+        ArrayList<String> errors = new ArrayList<>();
+
+        for (FormField field : fields) {
+            ArrayList<String> fieldErrors = new ArrayList<>();
+
+            for (String error : field.getErrors()) {
+                fieldErrors.add("Field " + field.getName() + " " + error);
+            }
+
+            errors.addAll(fieldErrors);
+        }
+
+        return errors;
     }
 
     /**
@@ -76,16 +95,16 @@ public class Form
             collectors.put(String.class, Collector.simple);
         }
 
+        private ArrayList<Validator> validators = new ArrayList<>();
+        private ArrayList<String> errors = new ArrayList<>();
+
         private String name;
         private Object source;
-        private ArrayList<Validator> validators;
 
         public FormField(String name, Object source)
         {
             this.name = name;
             this.source = source;
-
-            validators = new ArrayList<>();
         }
 
         public void addAllValidators(Validator[] validators)
@@ -119,14 +138,21 @@ public class Form
 
         public boolean isValid(String value)
         {
-            // TODO: support error messages.
+            boolean success = true;
+
             for (Validator validator : validators) {
                 if (!validator.isValid(value)) {
-                    return false;
+                    errors.add(validator.getErrorMessage());
+                    success = false;
                 }
             }
 
-            return true;
+            return success;
+        }
+
+        public ArrayList<String> getErrors()
+        {
+            return errors;
         }
     }
 }
