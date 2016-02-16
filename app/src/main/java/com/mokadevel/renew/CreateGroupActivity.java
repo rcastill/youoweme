@@ -2,13 +2,17 @@ package com.mokadevel.renew;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import com.android.internal.util.Predicate;
+import com.mokadevel.renew.forms.Form;
+import com.mokadevel.renew.forms.Validator;
 import com.mokadevel.renew.fragments.GroupsFragment;
 import com.mokadevel.renew.models.Group;
 import com.mokadevel.renew.models.User;
@@ -21,7 +25,7 @@ public class CreateGroupActivity extends AppCompatActivity
     public static final String EXTRA_GROUP_ID = "groupId";
 
     private ProgressDialog progressDialog;
-    private TextView textViewName;
+    private EditText editTextName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -32,7 +36,7 @@ public class CreateGroupActivity extends AppCompatActivity
         setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
         getSupportActionBar().setTitle("Create a group");
 
-        textViewName = (TextView) findViewById(R.id.name);
+        editTextName = (EditText) findViewById(R.id.name);
 
         Button buttonSend = (Button) findViewById(R.id.send);
         buttonSend.setOnClickListener(this);
@@ -41,9 +45,19 @@ public class CreateGroupActivity extends AppCompatActivity
     @Override
     public void onClick(View v)
     {
-        progressDialog = ProgressDialog.show(this, "Creating group", "Please wait...");
+        Form form = new Form();
+        form.addField("name", editTextName, Validator.notEmpty);
+        form.collectAll();
 
-        GroupRequests.create(textViewName.getText().toString(), User.testUser(), this);
+        if (form.isValid()) {
+            progressDialog = ProgressDialog.show(this, "Creating group", "Please wait...");
+            GroupRequests.create(form.get("name"), User.testUser(), this);
+        } else {
+            new AlertDialog.Builder(getApplication())
+                    .setTitle("Error")
+                    .setMessage("Validation error in form.")
+                    .show();
+        }
     }
 
     @Override

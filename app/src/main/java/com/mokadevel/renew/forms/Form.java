@@ -12,19 +12,12 @@ public class Form
 {
     private static final String TAG = "DEVLOG:FORM";
 
-    // collectors for each type of form input.
-    // TODO: complete.
-    private static HashMap<Class<?>, Collector> collectors = new HashMap<>();
-    static {
-        collectors.put(TextView.class, new Collector.TextViewCollector());
-    }
-
     private ArrayList<FormField> fields = new ArrayList<>();
     private HashMap<String, String> data;
 
-    public void addField(String name, View view, Validator... validators)
+    public void addField(String name, Object source, Validator... validators)
     {
-        FormField field = new FormField(name, view);
+        FormField field = new FormField(name, source);
         field.addAllValidators(validators);
 
         fields.add(field);
@@ -36,16 +29,16 @@ public class Form
         data = new HashMap<>();
 
         for (FormField field : fields) {
-            View view = field.getView();
-            Collector collector = collectors.get(view.getClass());
-            String value = collector.collect(view);
-
-            data.put(field.getName(), value);
+            data.put(field.getName(), field.getValue());
         }
     }
 
     public boolean isValid()
     {
+        if (data == null) {
+            throw new InvalidStateException("collectAll should be called first.");
+        }
+
         for (FormField field : fields) {
             String value = data.get(field.getName());
 
@@ -68,19 +61,29 @@ public class Form
     }
 
     /**
-     * Acts as a bundle for a field, containing it's name, the view that holds it's value,
+     * Acts as a bundle for a field, containing it's name, the source that holds it's value,
      * and validators for that value.
      */
-    private class FormField
+    private static class FormField
     {
+        private static final String TAG = "DEVLOG:FORM_FIELD";
+
+        // collectors for each type of form input.
+        // TODO: complete.
+        private static HashMap<Class<?>, Collector> collectors = new HashMap<>();
+        static {
+            collectors.put(TextView.class, Collector.textView);
+            collectors.put(String.class, Collector.simple);
+        }
+
         private String name;
-        private View view;
+        private Object source;
         private ArrayList<Validator> validators;
 
-        public FormField(String name, View view)
+        public FormField(String name, Object source)
         {
             this.name = name;
-            this.view = view;
+            this.source = source;
 
             validators = new ArrayList<>();
         }
@@ -95,9 +98,23 @@ public class Form
             return name;
         }
 
-        public View getView()
+        public Object getSource()
         {
-            return view;
+            return source;
+        }
+
+        @SuppressWarnings("unchecked")
+        public String getValue()
+        {
+            Collector collector = collectors.get(source.getClass());
+
+            if (collector != null) {
+                return collector.collect(source);
+            }
+
+            Log.e(TAG, "getValue: Value can't be collected from source.");
+
+            return null;
         }
 
         public boolean isValid(String value)

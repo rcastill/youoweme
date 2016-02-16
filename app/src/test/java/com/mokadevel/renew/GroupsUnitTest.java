@@ -37,6 +37,6 @@ public class GroupsUnitTest
     @Test
     public void fromJson_membersCount() throws Exception
     {
-        assertEquals(1, group.getMembers().size());
+        assertEquals(1, group.getSize());
     }
 }
