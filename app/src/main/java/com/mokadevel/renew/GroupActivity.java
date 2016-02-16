@@ -41,6 +41,7 @@ public class GroupActivity extends AppCompatActivity implements Predicate<Group>
         long groupId = getIntent().getLongExtra(EXTRA_GROUP_ID, 0);
 
         if (groupId == 0) {
+            // TODO: handle this error properly.
             return;
         }
 

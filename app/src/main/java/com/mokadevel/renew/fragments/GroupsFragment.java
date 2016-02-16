@@ -23,6 +23,8 @@ import java.util.ArrayList;
 public class GroupsFragment extends Fragment
 {
     public static final int CREATE_GROUP = 1;
+    public static final int CREATE_GROUP_SUCCESS = 2;
+    public static final int CREATE_GROUP_ERROR = 3;
 
     private ArrayList<Group> groups = new ArrayList<>();
 
@@ -46,6 +48,13 @@ public class GroupsFragment extends Fragment
         fab.setOnClickListener(new CreateGroupOnClickListener());
 
         return rootView;
+    }
+
+    private void toGroupDetail(long groupId)
+    {
+        Intent intent = new Intent(getActivity(), GroupActivity.class);
+        intent.putExtra(GroupActivity.EXTRA_GROUP_ID, groupId);
+        startActivity(intent);
     }
 
     // - OnClickListener.
@@ -76,9 +85,7 @@ public class GroupsFragment extends Fragment
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id)
         {
-            Intent intent = new Intent(getActivity(), GroupActivity.class);
-            intent.putExtra(GroupActivity.EXTRA_GROUP_ID, groups.get(position).getId());
-            startActivity(intent);
+            toGroupDetail(groups.get(position).getId());
         }
     }
 
@@ -118,6 +125,14 @@ public class GroupsFragment extends Fragment
             textViewMemberCount.setText(String.format(text, group.getSize()));
 
             return convertView;
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data)
+    {
+        if (requestCode == CREATE_GROUP && resultCode == CREATE_GROUP_SUCCESS) {
+            toGroupDetail(data.getLongExtra(CreateGroupActivity.EXTRA_GROUP_ID, 0));
         }
     }
 }

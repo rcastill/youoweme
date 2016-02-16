@@ -11,6 +11,7 @@ import com.mokadevel.renew.requests.Requests;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.UUID;
 import java.util.concurrent.CountDownLatch;
 
 public class GroupRequestsTest extends ApplicationTestCase<Application>
@@ -28,6 +29,26 @@ public class GroupRequestsTest extends ApplicationTestCase<Application>
         Requests.initialize(getContext());
 
         user = new User().fromJson(new JSONObject("{\"id\": 1, \"name\": \"Test User\"}"));
+    }
+
+    @LargeTest
+    public void testCreate() throws InterruptedException
+    {
+        final String groupName = "Test " + UUID.randomUUID();
+
+        final CountDownLatch signal = new CountDownLatch(1);
+        GroupRequests.create(groupName, user, new Predicate<Group>()
+        {
+            @Override
+            public boolean apply(Group group)
+            {
+                assertEquals(group.getName(), groupName);
+
+                signal.countDown();
+                return false;
+            }
+        });
+        signal.await();
     }
 
     @LargeTest
