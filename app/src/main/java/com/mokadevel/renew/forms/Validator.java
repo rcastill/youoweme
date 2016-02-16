@@ -1,9 +1,9 @@
 package com.mokadevel.renew.forms;
 
-import java.util.Locale;
-
 /**
  * Validator's abstract class and compilation of commonly used validators.
+ *
+ * Validators should be immutable.
  *
  * @author mijara
  */
